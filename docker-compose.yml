@@ -17,7 +17,7 @@ services:
 
   # Servicio de la Aplicación Spring Boot
   app:
-    image: ghcr.io/GustavoEEDD/hogwarts_backend_992:latest
+    image: ghcr.io/gustavoeedd/hogwarts_backend_992:latest
     container_name: aaee_hogwarts_app_gdr
     restart: always
     ports:

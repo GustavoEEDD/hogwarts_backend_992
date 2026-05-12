@@ -1,0 +1,16 @@
+services:
+  mysql_db:
+    image: mysql:8.0  # Usamos la 8.0 ya que la 7.0 no existe en el registro oficial
+    container_name: mysql_gdr
+    restart: always
+    ports:
+      - "6666:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: "1234"
+      MYSQL_USER: "aaee_gdr"
+      MYSQL_PASSWORD: "1234"
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+volumes:
+  mysql_data:

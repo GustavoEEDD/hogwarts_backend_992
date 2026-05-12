@@ -1,16 +1,28 @@
 services:
-  mysql_db:
-    image: mysql:8.0  # Usamos la 8.0 ya que la 7.0 no existe en el registro oficial
-    container_name: mysql_gdr
+
+  # Servicio de MariaDB
+  mariadb:
+    image: mariadb:10.6
+    container_name: mariadb_gdr
     restart: always
     ports:
-      - "6666:3306"
+      - "4306:3306"
+    env_file:
+      - .env
     environment:
-      MYSQL_ROOT_PASSWORD: "1234"
-      MYSQL_USER: "aaee_gdr"
-      MYSQL_PASSWORD: "1234"
-    volumes:
-      - mysql_data:/var/lib/mysql
+      MARIADB_USER: aaee_gdr
+      MARIADB_DATABASE: hogwarts_gdr
+      MARIADB_PASSWORD: “1234”
+      MARIADB_ROOT_PASSWORD: "1234"
 
-volumes:
-  mysql_data:
+  # Servicio de la Aplicación Spring Boot
+  app:
+    image: ghcr.io/GustavoEEDD/hogwarts_backend_992:latest
+    container_name: aaee_hogwarts_app_gdr
+    restart: always
+    ports:
+      - "8080:8080"
+    env_file:
+      - .env
+    depends_on:
+      - mariadb
